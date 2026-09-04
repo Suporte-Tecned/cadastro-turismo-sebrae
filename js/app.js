@@ -150,6 +150,7 @@ form.addEventListener("submit", async (ev) => {
   limparStatus();
 
   const nome = document.getElementById("nome").value.trim();
+  const sobrenome = document.getElementById("sobrenome").value.trim();
   const email = document.getElementById("email").value.trim();
   const cpf = document.getElementById("cpf").value.trim();
   const cidade = document.getElementById("cidade").value.trim();
@@ -163,6 +164,10 @@ form.addEventListener("submit", async (ev) => {
   let valido = true;
   if (!nome) {
     marcarInvalido("campo-nome");
+    valido = false;
+  }
+  if (!sobrenome) {
+    marcarInvalido("campo-sobrenome");
     valido = false;
   }
   if (!email || !emailValido(email)) {
@@ -197,6 +202,7 @@ form.addEventListener("submit", async (ev) => {
   const payload = {
     action: "create",
     nome,
+    sobrenome,
     email,
     cpf: apenasDigitos(cpf), // envia só números para a planilha
     cidade,
@@ -257,6 +263,10 @@ async function carregarAlunos() {
   }
 }
 
+function nomeCompleto(aluno) {
+  return [aluno.nome, aluno.sobrenome].filter(Boolean).join(" ");
+}
+
 function renderizarLista() {
   if (cacheAlunos.length === 0) {
     listaCorpo.innerHTML =
@@ -267,11 +277,12 @@ function renderizarLista() {
   cacheAlunos.forEach((aluno) => {
     const linha = document.createElement("div");
     linha.className = "linha-aluno";
+    const nomeExibicao = nomeCompleto(aluno);
     linha.innerHTML =
       '<span title="' +
-      escapeHtml(aluno.nome) +
+      escapeHtml(nomeExibicao) +
       '">' +
-      escapeHtml(aluno.nome) +
+      escapeHtml(nomeExibicao) +
       "</span>" +
       '<span title="' +
       escapeHtml(aluno.cidade) +
@@ -326,6 +337,7 @@ function abrirEdicao(aluno) {
   editStatus.style.display = "none";
   document.getElementById("edit-id").value = aluno.id;
   document.getElementById("edit-nome").value = aluno.nome || "";
+  document.getElementById("edit-sobrenome").value = aluno.sobrenome || "";
   document.getElementById("edit-email").value = aluno.email || "";
   document.getElementById("edit-cpf").value = maskCPF(
     String(aluno.cpf || "").padStart(11, "0"),
@@ -355,6 +367,7 @@ formEditar.addEventListener("submit", async (ev) => {
 
   const id = document.getElementById("edit-id").value;
   const nome = document.getElementById("edit-nome").value.trim();
+  const sobrenome = document.getElementById("edit-sobrenome").value.trim();
   const email = document.getElementById("edit-email").value.trim();
   const cpf = document.getElementById("edit-cpf").value.trim();
   const cidade = document.getElementById("edit-cidade").value.trim();
@@ -367,6 +380,10 @@ formEditar.addEventListener("submit", async (ev) => {
   let valido = true;
   if (!nome) {
     marcarInvalido("edit-campo-nome");
+    valido = false;
+  }
+  if (!sobrenome) {
+    marcarInvalido("edit-campo-sobrenome");
     valido = false;
   }
   if (!email || !emailValido(email)) {
@@ -405,6 +422,7 @@ formEditar.addEventListener("submit", async (ev) => {
     action: "update",
     id,
     nome,
+    sobrenome,
     email,
     cpf: apenasDigitos(cpf),
     cidade,

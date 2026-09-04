@@ -38,10 +38,17 @@
             <fieldset class="fieldset-dados">
               <legend>Dados do aluno</legend>
 
-              <div class="campo" id="campo-nome">
-                <label for="nome">Nome completo</label>
-                <input type="text" id="nome" name="nome" autocomplete="name" required />
-                <p class="erro-campo">Digite o nome completo do aluno.</p>
+              <div class="linha-dupla">
+                <div class="campo" id="campo-nome">
+                  <label for="nome">Nome</label>
+                  <input type="text" id="nome" name="nome" autocomplete="name" required />
+                  <p class="erro-campo">Digite o nome.</p>
+                </div>
+                <div class="campo" id="campo-sobrenome">
+                  <label for="sobrenome">Sobrenome</label>
+                  <input type="text" id="sobrenome" name="sobrenome" autocomplete="family-name" required />
+                  <p class="erro-campo">Digite o sobrenome.</p>
+                </div>
               </div>
 
               <div class="campo" id="campo-email">
@@ -125,10 +132,17 @@
     <form id="form-editar" novalidate>
       <input type="hidden" id="edit-id" />
 
-      <div class="campo" id="edit-campo-nome">
-        <label for="edit-nome">Nome completo</label>
-        <input type="text" id="edit-nome" required />
-        <p class="erro-campo">Digite o nome completo do aluno.</p>
+      <div class="linha-dupla">
+        <div class="campo" id="edit-campo-nome">
+          <label for="edit-nome">Nome</label>
+          <input type="text" id="edit-nome" required />
+          <p class="erro-campo">Digite o nome.</p>
+        </div>
+        <div class="campo" id="edit-campo-sobrenome">
+          <label for="edit-sobrenome">Sobrenome</label>
+          <input type="text" id="edit-sobrenome" required />
+          <p class="erro-campo">Digite o sobrenome.</p>
+        </div>
       </div>
 
       <div class="campo" id="edit-campo-email">
