@@ -188,60 +188,6 @@ main {
   gap: 2.2vw;
 }
 
-@media (max-width: 720px) {
-  html, body {
-    height: auto;
-    overflow: auto;
-  }
-
-  .app {
-    height: auto;
-    min-height: 100dvh;
-    overflow: visible;
-  }
-
-  main {
-    overflow: visible;
-  }
-
-  .view {
-    position: static;
-    inset: auto;
-    overflow: visible;
-  }
-
-  #view-cadastro form {
-    height: auto;
-  }
-
-  .conteudo-form {
-    display: flex;
-    flex-direction: column;
-    gap: 2.2vh;
-  }
-
-  .coluna,
-  .fieldset-dados,
-  .cursos-bloco {
-    height: auto;
-    min-height: 0;
-  }
-
-  .grade-cursos,
-  .lista-corpo {
-    flex: none;
-    overflow: visible;
-  }
-
-  .linha-dupla {
-    grid-template-columns: 1fr;
-  }
-
-  .header-logo { position: static; }
-  .header-sebrae { display: none; }
-  header { justify-content: center; }
-}
-
 .coluna {
   display: flex;
   flex-direction: column;
@@ -635,6 +581,27 @@ button.principal:hover:not(:disabled) { background: linear-gradient(135deg, var(
   font-size: clamp(11px, 1.4vh, 13px);
 }
 
+.carregando {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2vh;
+}
+
+.spinner {
+  width: 34px;
+  height: 34px;
+  border: 3px solid var(--azul-claro);
+  border-top-color: var(--azul);
+  border-radius: 50%;
+  animation: girar 0.8s linear infinite;
+}
+
+@keyframes girar {
+  to { transform: rotate(360deg); }
+}
+
 /* ---------- modal de edição ---------- */
 #modal-editar {
   position: fixed;
@@ -732,4 +699,59 @@ button.principal:hover:not(:disabled) { background: linear-gradient(135deg, var(
   min-width: 0;
   padding: clamp(7px, 1.2vh, 10px) 20px;
   font-size: clamp(11px, 1.4vh, 13px);
+}
+
+/* ================= MOBILE (≤ 720px) ================= */
+@media (max-width: 720px) {
+  html, body {
+    height: auto;
+    overflow: auto;
+  }
+
+  .app {
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+
+  main {
+    overflow: visible;
+  }
+
+  .view {
+    position: static;
+    inset: auto;
+    overflow: visible;
+  }
+
+  #view-cadastro form {
+    height: auto;
+  }
+
+  .conteudo-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2.2vh;
+  }
+
+  .coluna,
+  .fieldset-dados,
+  .cursos-bloco {
+    height: auto;
+    min-height: 0;
+  }
+
+  .linha-dupla {
+    grid-template-columns: 1fr;
+  }
+
+  .grade-cursos,
+  .lista-corpo {
+    flex: none;
+    overflow: visible;
+  }
+
+  .header-logo { position: static; }
+  .header-sebrae { display: none; }
+  header { justify-content: center; }
 }

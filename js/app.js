@@ -249,7 +249,7 @@ const listaCorpo = document.getElementById("lista-corpo");
 let cacheAlunos = [];
 
 async function carregarAlunos() {
-  listaCorpo.innerHTML = '<p class="carregando">Carregando alunos...</p>';
+  mostrarCarregando();
   try {
     const resp = await fetch(SCRIPT_URL, { method: "GET" });
     const resultado = await resp.json();
@@ -261,6 +261,15 @@ async function carregarAlunos() {
     listaCorpo.innerHTML =
       '<p class="carregando">Não foi possível carregar os alunos agora.</p>';
   }
+}
+
+function mostrarCarregando() {
+  const item = document.createElement("div");
+  item.classList.add("carregando");
+  item.innerHTML =
+    '<span class="spinner" aria-hidden="true"></span><span>Carregando alunos...</span>';
+  listaCorpo.innerHTML = "";
+  listaCorpo.appendChild(item);
 }
 
 function nomeCompleto(aluno) {
