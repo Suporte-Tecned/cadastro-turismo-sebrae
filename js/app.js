@@ -296,8 +296,6 @@ function renderizarLista() {
       escapeHtml(nomeExibicao) +
       '">' +
       escapeHtml(nomeExibicao) +
-      '</span><span class="nome-grupo">' +
-      (cursos ? escapeHtml(cursos.split(", ")[0]) : "—") +
       "</span>" +
       "</span>" +
       "</span>" +
