@@ -1,0 +1,14 @@
+# Arquivos locais que não devem ir para o GitHub
+instrucoes.md
+Code.gs
+
+# Sistema
+Thumbs.db
+Desktop.ini
+
+# Editores / IDEs
+.vscode/
+.idea/
+
+# Sistema operacional
+.DS_Store
