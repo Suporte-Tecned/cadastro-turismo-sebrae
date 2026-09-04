@@ -106,12 +106,15 @@
     <!-- ======= TELA 2: LISTA DE ALUNOS ======= -->
     <div class="view" id="view-lista">
       <div class="lista-topo">
-        <h2 id="titulo-lista">Alunos cadastrados</h2>
-        <button type="button" id="btn-atualizar-lista">Atualizar</button>
+        <div class="lista-topo-esq">
+          <h2 id="titulo-lista">Alunos cadastrados</h2>
+          <span class="lista-contador" id="lista-contador">0</span>
+        </div>
+        <button type="button" id="btn-atualizar-lista"><i class="ri-refresh-line"></i> Atualizar</button>
       </div>
 
       <div class="tabela-cabecalho">
-        <span>Nome</span>
+        <span>Aluno</span>
         <span>Cidade</span>
         <span>CPF</span>
         <span class="col-cursos">Cursos</span>
@@ -128,65 +131,68 @@
 <!-- ======= MODAL: EDITAR ALUNO ======= -->
 <div id="modal-editar">
   <div class="modal-caixa">
-    <h2>Editar cadastro</h2>
     <form id="form-editar" novalidate>
+      <h2><i class="ri-user-settings-line"></i> Editar cadastro</h2>
+      <div class="modal-cabecalho-sub" id="edit-cabecalho-sub">Alterando os dados do aluno</div>
       <input type="hidden" id="edit-id" />
 
-      <div class="linha-dupla">
-        <div class="campo" id="edit-campo-nome">
-          <label for="edit-nome">Nome</label>
-          <input type="text" id="edit-nome" required />
-          <p class="erro-campo">Digite o nome.</p>
+      <div class="modal-conteudo">
+        <div class="modal-secao-titulo">Dados pessoais</div>
+        <div class="linha-dupla">
+          <div class="campo" id="edit-campo-nome">
+            <label for="edit-nome">Nome</label>
+            <input type="text" id="edit-nome" required />
+            <p class="erro-campo">Digite o nome.</p>
+          </div>
+          <div class="campo" id="edit-campo-sobrenome">
+            <label for="edit-sobrenome">Sobrenome</label>
+            <input type="text" id="edit-sobrenome" required />
+            <p class="erro-campo">Digite o sobrenome.</p>
+          </div>
         </div>
-        <div class="campo" id="edit-campo-sobrenome">
-          <label for="edit-sobrenome">Sobrenome</label>
-          <input type="text" id="edit-sobrenome" required />
-          <p class="erro-campo">Digite o sobrenome.</p>
-        </div>
-      </div>
 
-      <div class="campo" id="edit-campo-email">
-        <label for="edit-email">E-mail</label>
-        <input type="email" id="edit-email" required />
-        <p class="erro-campo">Digite um e-mail válido.</p>
-      </div>
-
-      <div class="linha-dupla">
-        <div class="campo" id="edit-campo-cpf">
-          <label for="edit-cpf">CPF</label>
-          <input type="text" id="edit-cpf" inputmode="numeric" maxlength="14" required />
-          <p class="erro-campo">O CPF precisa ter 11 dígitos.</p>
+        <div class="linha-dupla">
+          <div class="campo" id="edit-campo-email">
+            <label for="edit-email">E-mail</label>
+            <input type="email" id="edit-email" required />
+            <p class="erro-campo">Digite um e-mail válido.</p>
+          </div>
+          <div class="campo" id="edit-campo-cpf">
+            <label for="edit-cpf">CPF</label>
+            <input type="text" id="edit-cpf" inputmode="numeric" maxlength="14" required />
+            <p class="erro-campo">O CPF precisa ter 11 dígitos.</p>
+          </div>
         </div>
-        <div class="campo" id="edit-campo-cidade">
-          <label for="edit-cidade">Cidade</label>
-          <input type="text" id="edit-cidade" required />
-          <p class="erro-campo">Informe a cidade.</p>
-        </div>
-      </div>
 
-      <fieldset>
-        <legend>Cursos escolhidos</legend>
+        <div class="modal-secao-titulo">Cursos escolhidos</div>
         <div class="grade-cursos" id="edit-grade-cursos" style="max-height: 26vh; overflow-y:auto;"></div>
         <p id="edit-erro-cursos" style="display:none; color:#b3261e; font-size:11px; margin-top:6px;">Selecione ao menos um curso.</p>
-      </fieldset>
 
-      <div class="linha-dupla">
+        <div class="modal-secao-titulo">Atendimento</div>
+        <div class="linha-dupla">
+          <div class="campo" id="edit-campo-cidade">
+            <label for="edit-cidade">Cidade</label>
+            <input type="text" id="edit-cidade" required />
+            <p class="erro-campo">Informe a cidade.</p>
+          </div>
+          <div class="campo">
+            <label for="edit-data">Data do atendimento</label>
+            <input type="date" id="edit-data" />
+          </div>
+        </div>
+
         <div class="campo" id="edit-campo-responsavel">
           <label for="edit-responsavel">Responsável pelo cadastro</label>
           <input type="text" id="edit-responsavel" required />
           <p class="erro-campo">Informe o responsável.</p>
         </div>
-        <div class="campo">
-          <label for="edit-data">Data do atendimento</label>
-          <input type="date" id="edit-data" />
+
+        <div id="edit-status" style="display:none; padding:8px 10px; border-radius:6px; font-size:12px; margin-top:8px;"></div>
+
+        <div class="modal-rodape">
+          <button type="button" class="secundario" id="btn-cancelar-edicao">Cancelar</button>
+          <button type="submit" class="principal" id="btn-salvar-edicao">Salvar alterações</button>
         </div>
-      </div>
-
-      <div id="edit-status" style="display:none; padding:8px 10px; border-radius:6px; font-size:12px; margin-bottom:8px;"></div>
-
-      <div class="modal-rodape">
-        <button type="button" class="secundario" id="btn-cancelar-edicao">Cancelar</button>
-        <button type="submit" class="principal" id="btn-salvar-edicao">Salvar alterações</button>
       </div>
     </form>
   </div>

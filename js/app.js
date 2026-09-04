@@ -267,45 +267,65 @@ function nomeCompleto(aluno) {
   return [aluno.nome, aluno.sobrenome].filter(Boolean).join(" ");
 }
 
+let listaContador = document.getElementById("lista-contador");
+
 function renderizarLista() {
   if (cacheAlunos.length === 0) {
     listaCorpo.innerHTML =
       '<p class="vazio">Nenhum aluno cadastrado ainda.</p>';
     return;
   }
+  listaContador.textContent = cacheAlunos.length;
   listaCorpo.innerHTML = "";
   cacheAlunos.forEach((aluno) => {
     const linha = document.createElement("div");
     linha.className = "linha-aluno";
     const nomeExibicao = nomeCompleto(aluno);
+    const inicial = (aluno.nome || "?").trim().charAt(0).toUpperCase();
+    const cursos = aluno.cursos || "";
+    const cidade = aluno.cidade || "";
+    const responsavel = aluno.responsavel || "";
+    const cpf = maskCPF(String(aluno.cpf || "").padStart(11, "0"));
     linha.innerHTML =
-      '<span title="' +
+      '<span class="cel-aluno">' +
+      '<span class="avatar" aria-hidden="true">' +
+      escapeHtml(inicial) +
+      "</span>" +
+      '<span class="nome-wrap">' +
+      '<span class="nome-forte" title="' +
       escapeHtml(nomeExibicao) +
       '">' +
       escapeHtml(nomeExibicao) +
+      '</span><span class="nome-grupo">' +
+      (cursos ? escapeHtml(cursos.split(", ")[0]) : "—") +
       "</span>" +
-      '<span title="' +
-      escapeHtml(aluno.cidade) +
-      '">' +
-      escapeHtml(aluno.cidade) +
       "</span>" +
-      "<span>" +
-      maskCPF(String(aluno.cpf || "").padStart(11, "0")) +
+      "</span>" +
+      '<span class="cel-com-icone" title="' +
+      escapeHtml(cidade) +
+      '"><i class="ri-map-pin-line"></i>' +
+      escapeHtml(cidade) +
+      "</span>" +
+      '<span class="cel-com-icone" title="' +
+      escapeHtml(cpf) +
+      '"><i class="ri-id-card-line"></i>' +
+      escapeHtml(cpf) +
       "</span>" +
       '<span class="col-cursos" title="' +
-      escapeHtml(aluno.cursos) +
+      escapeHtml(cursos) +
       '">' +
-      escapeHtml(aluno.cursos) +
+      escapeHtml(cursos) +
       "</span>" +
-      '<span class="col-responsavel" title="' +
-      escapeHtml(aluno.responsavel) +
-      '">' +
-      escapeHtml(aluno.responsavel) +
+      '<span class="col-responsavel cel-com-icone" title="' +
+      escapeHtml(responsavel) +
+      '"><i class="ri-user-star-line"></i>' +
+      escapeHtml(responsavel) +
       "</span>" +
       "<span></span>";
     const btnEditar = document.createElement("button");
     btnEditar.type = "button";
-    btnEditar.textContent = "Editar";
+    btnEditar.innerHTML =
+      '<i class="ri-pencil-line"></i><span>Editar</span>';
     btnEditar.addEventListener("click", () => abrirEdicao(aluno));
     linha.lastElementChild.appendChild(btnEditar);
     listaCorpo.appendChild(linha);
@@ -339,6 +359,8 @@ function abrirEdicao(aluno) {
   document.getElementById("edit-nome").value = aluno.nome || "";
   document.getElementById("edit-sobrenome").value = aluno.sobrenome || "";
   document.getElementById("edit-email").value = aluno.email || "";
+  document.getElementById("edit-cabecalho-sub").textContent =
+    nomeCompleto(aluno) || "Aluno";
   document.getElementById("edit-cpf").value = maskCPF(
     String(aluno.cpf || "").padStart(11, "0"),
   );
