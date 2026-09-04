@@ -194,6 +194,9 @@ main {
     grid-template-rows: auto 1fr;
     overflow-y: auto;
   }
+  .linha-dupla {
+    grid-template-columns: 1fr;
+  }
   .header-logo { position: static; }
   .header-sebrae { display: none; }
   header { justify-content: center; }
@@ -283,6 +286,7 @@ input[type="date"] {
   gap: 0.5vh 0.6vw;
   align-content: start;
   padding-right: 2px;
+  padding-top: 12px;
 }
 
 @media (max-width: 480px) {
