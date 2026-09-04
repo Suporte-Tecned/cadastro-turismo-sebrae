@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<title>Cadastro de Alunos — Cursos de Turismo Sebrae/SE</title>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div class="app">
+  <header>
+    <div class="header-logo">
+      <img src="https://turismo-se.com.br/pluginfile.php/1/theme_mb2nl/logo/1788176949/logoConjunto-topo.png" alt="Sergipe - Esse é o Destino" />
+    </div>
+    <div class="header-texto">
+      <p class="rotulo">Sebrae/SE — Cursos de Turismo</p>
+      <h1>Cadastro de Aluno no Atendimento Presencial</h1>
+    </div>
+    <div class="header-sebrae">
+      <i class="ri-user-add-line"></i>
+      <span>Atendimento Presencial</span>
+    </div>
+  </header>
+
+  <nav class="abas">
+    <button type="button" id="aba-cadastro" class="ativa">Novo cadastro</button>
+    <button type="button" id="aba-lista">Alunos cadastrados</button>
+  </nav>
+
+  <main>
+    <!-- ======= TELA 1: CADASTRO ======= -->
+    <div class="view ativa" id="view-cadastro">
+      <form id="form-cadastro" novalidate>
+        <div class="conteudo-form">
+          <div class="coluna">
+            <fieldset class="fieldset-dados">
+              <legend>Dados do aluno</legend>
+
+              <div class="campo" id="campo-nome">
+                <label for="nome">Nome completo</label>
+                <input type="text" id="nome" name="nome" autocomplete="name" required />
+                <p class="erro-campo">Digite o nome completo do aluno.</p>
+              </div>
+
+              <div class="campo" id="campo-email">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" autocomplete="email" required />
+                <p class="erro-campo">Digite um e-mail válido.</p>
+              </div>
+
+              <div class="linha-dupla">
+                <div class="campo" id="campo-cpf">
+                  <label for="cpf">CPF</label>
+                  <input type="text" id="cpf" name="cpf" inputmode="numeric" placeholder="000.000.000-00" maxlength="14" required />
+                  <p class="erro-campo">O CPF precisa ter 11 dígitos.</p>
+                </div>
+
+                <div class="campo" id="campo-cidade">
+                  <label for="cidade">Cidade</label>
+                  <input type="text" id="cidade" name="cidade" autocomplete="address-level2" required />
+                  <p class="erro-campo">Informe a cidade.</p>
+                </div>
+              </div>
+
+              <div class="linha-dupla">
+                <div class="campo" id="campo-responsavel">
+                  <label for="responsavel">Responsável pelo cadastro</label>
+                  <input type="text" id="responsavel" name="responsavel" required />
+                  <p class="erro-campo">Informe seu nome.</p>
+                </div>
+                <div class="campo">
+                  <label for="data">Data do atendimento</label>
+                  <input type="date" id="data" name="data" />
+                </div>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="coluna">
+            <div class="cursos-bloco">
+              <fieldset style="margin-bottom: 0.6vh;">
+                <legend>Cursos escolhidos <span style="font-weight:400;">— marque quantos quiser</span></legend>
+              </fieldset>
+              <div class="grade-cursos" id="grade-cursos"></div>
+              <p id="erro-cursos">Selecione ao menos um curso.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="rodape-form">
+          <button type="submit" class="principal" id="btn-enviar">Cadastrar aluno</button>
+          <div id="status" role="status"></div>
+        </div>
+      </form>
+    </div>
+
+    <!-- ======= TELA 2: LISTA DE ALUNOS ======= -->
+    <div class="view" id="view-lista">
+      <div class="lista-topo">
+        <h2 id="titulo-lista">Alunos cadastrados</h2>
+        <button type="button" id="btn-atualizar-lista">Atualizar</button>
+      </div>
+
+      <div class="tabela-cabecalho">
+        <span>Nome</span>
+        <span>Cidade</span>
+        <span>CPF</span>
+        <span class="col-cursos">Cursos</span>
+        <span class="col-responsavel">Responsável</span>
+        <span></span>
+      </div>
+      <div class="lista-corpo" id="lista-corpo">
+        <p class="carregando">Carregando alunos...</p>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ======= MODAL: EDITAR ALUNO ======= -->
+<div id="modal-editar">
+  <div class="modal-caixa">
+    <h2>Editar cadastro</h2>
+    <form id="form-editar" novalidate>
+      <input type="hidden" id="edit-id" />
+
+      <div class="campo" id="edit-campo-nome">
+        <label for="edit-nome">Nome completo</label>
+        <input type="text" id="edit-nome" required />
+        <p class="erro-campo">Digite o nome completo do aluno.</p>
+      </div>
+
+      <div class="campo" id="edit-campo-email">
+        <label for="edit-email">E-mail</label>
+        <input type="email" id="edit-email" required />
+        <p class="erro-campo">Digite um e-mail válido.</p>
+      </div>
+
+      <div class="linha-dupla">
+        <div class="campo" id="edit-campo-cpf">
+          <label for="edit-cpf">CPF</label>
+          <input type="text" id="edit-cpf" inputmode="numeric" maxlength="14" required />
+          <p class="erro-campo">O CPF precisa ter 11 dígitos.</p>
+        </div>
+        <div class="campo" id="edit-campo-cidade">
+          <label for="edit-cidade">Cidade</label>
+          <input type="text" id="edit-cidade" required />
+          <p class="erro-campo">Informe a cidade.</p>
+        </div>
+      </div>
+
+      <fieldset>
+        <legend>Cursos escolhidos</legend>
+        <div class="grade-cursos" id="edit-grade-cursos" style="max-height: 26vh; overflow-y:auto;"></div>
+        <p id="edit-erro-cursos" style="display:none; color:#b3261e; font-size:11px; margin-top:6px;">Selecione ao menos um curso.</p>
+      </fieldset>
+
+      <div class="linha-dupla">
+        <div class="campo" id="edit-campo-responsavel">
+          <label for="edit-responsavel">Responsável pelo cadastro</label>
+          <input type="text" id="edit-responsavel" required />
+          <p class="erro-campo">Informe o responsável.</p>
+        </div>
+        <div class="campo">
+          <label for="edit-data">Data do atendimento</label>
+          <input type="date" id="edit-data" />
+        </div>
+      </div>
+
+      <div id="edit-status" style="display:none; padding:8px 10px; border-radius:6px; font-size:12px; margin-bottom:8px;"></div>
+
+      <div class="modal-rodape">
+        <button type="button" class="secundario" id="btn-cancelar-edicao">Cancelar</button>
+        <button type="submit" class="principal" id="btn-salvar-edicao">Salvar alterações</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
