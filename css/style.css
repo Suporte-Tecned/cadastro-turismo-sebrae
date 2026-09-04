@@ -189,14 +189,54 @@ main {
 }
 
 @media (max-width: 720px) {
-  .conteudo-form {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
-    overflow-y: auto;
+  html, body {
+    height: auto;
+    overflow: auto;
   }
+
+  .app {
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+
+  main {
+    overflow: visible;
+  }
+
+  .view {
+    position: static;
+    inset: auto;
+    overflow: visible;
+  }
+
+  #view-cadastro form {
+    height: auto;
+  }
+
+  .conteudo-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2.2vh;
+  }
+
+  .coluna,
+  .fieldset-dados,
+  .cursos-bloco {
+    height: auto;
+    min-height: 0;
+  }
+
+  .grade-cursos,
+  .lista-corpo {
+    flex: none;
+    overflow: visible;
+  }
+
   .linha-dupla {
     grid-template-columns: 1fr;
   }
+
   .header-logo { position: static; }
   .header-sebrae { display: none; }
   header { justify-content: center; }
@@ -286,7 +326,6 @@ input[type="date"] {
   gap: 0.5vh 0.6vw;
   align-content: start;
   padding-right: 2px;
-  padding-top: 12px;
 }
 
 @media (max-width: 480px) {
